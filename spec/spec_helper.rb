@@ -7,3 +7,5 @@ require 'rspec'
 def get_contents(file)
   File.open(file, 'rb') { |f| f.read }
 end
+
+Thwomp::Renderer.gnash_binary = '/usr/local/gnash-dump/bin/dump-gnash'

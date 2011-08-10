@@ -33,7 +33,7 @@ module Thwomp
 
     # returns the current set gnash binary
     def self.gnash_binary
-      @gnash_binary ||= '/usr/local/gnash-dump/bin/dump-gnash'
+      @gnash_binary ||= 'gnash-dump'
     end
 
     # sets the path to the gnash binary

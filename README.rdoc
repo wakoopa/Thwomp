@@ -22,25 +22,6 @@ Requirements:
 +Install giflib:+
   brew install giflib
 
-+Install gstreamer:+
-  brew install gstreamer gst-plugins-base
-
-+Install ffmpeg:+
-
-Note: you can skip this step if you're using gstreamer
-
-You can install ffmpeg via homebrew:
-  brew install ffmpeg
-
-Or... from source. This is probably a good option becase we will be installing a nightly build from gnash:
-  cd /tmp/
-  wget http://ffmpeg.org/releases/ffmpeg-0.8.1.tar.gz
-  tar -xzf ffmpeg-0.8.1.tar.gz
-  cd ffmpeg-0.8.1
-  ./configure
-  make
-  make install
-
 +Install SDL dev. package:+
 Be warned, if you are running OSX Lion you'll need to set the default compiler to GCC instead of the GCC LVM compiler.
   export CC=gcc-4.2
@@ -96,7 +77,7 @@ TODO
 
 +Retrieiving image from frame:+
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
-  data = renderer.png_data 2
+  data = renderer.png_data(2)
 
 +Creating a preview for a given SWF:+
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")

@@ -1,0 +1,19 @@
+#!/bin/sh
+echo Installing homebrew and required libs
+/usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+
+brew update && brew install giflib boost libagg
+
+export CC=gcc-4.2
+
+echo Installing gnash
+
+cd /tmp/
+git clone git://git.sv.gnu.org/gnash.git
+cd gnash
+./autogen
+./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-kparts --disable-nsapi --disable-menus  make
+make
+sudo make install
+
+echo Done?!
