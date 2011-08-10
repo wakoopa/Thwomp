@@ -4,7 +4,6 @@ require 'rubygems'
 require 'yaml'
 require 'rspec'
 
-$enabled = false
-
-original_stdout = $stdout
-$stdout = StringIO.new
+def get_contents(file)
+  File.open(file, 'rb') { |f| f.read }
+end
