@@ -4,7 +4,7 @@ module Thwomp
 
     # tests if the given file remote
     def remote?
-      swf_url ~= /^http(s)?::/
+      swf_url =~ /^http(s)?::/
     end
 
     # tests if the given file is local
@@ -14,7 +14,7 @@ module Thwomp
 
     # returns filename of local/remote file
     def filename
-      local? swf_url : tmp_file.path
+      local?? swf_url : tmp_file.path
     end
 
     private

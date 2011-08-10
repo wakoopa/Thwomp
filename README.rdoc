@@ -83,6 +83,8 @@ Option 2: Install from tarbal from the intertubes:
   make
   sudo make install
 
+Don't forget to add sudo before gnash.
+
 === Ubuntu
 
 TODO
@@ -92,9 +94,10 @@ TODO
 
 == Usage
 
-+Creating a thumbnail preview for a given SWF:+
++Retrieiving image from frame:+
+  renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
+  data = renderer.png_data 2
 
-Initialize the renderer:
-  renderer = Thwomp::Renderer.new("http://www.nu.nl/ad.swf")
-
-  Thwomp::Thumbnail.new(renderer).file
++Creating a preview for a given SWF:+
+  renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
+  data = Thwomp::Preview.new(renderer).png_data
