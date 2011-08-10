@@ -5,7 +5,7 @@ SWF renderer for Ruby
 
 Requirements:
 * giflib
-* ffmpeg (with libswscale enabled)
+* gstreamer (with plugins) or ffmpeg (with libswscale enabled)
 * sdl
 * boost
 * antigrain (libagg)
@@ -22,12 +22,17 @@ Requirements:
 +Install giflib:+
   brew install giflib
 
++Install gstreamer:+
+  brew install gstreamer gst-plugins-base
+
 +Install ffmpeg:+
 
-You can install ffmpeg via homebrew:
-  bew install ffmpeg
+Note: you can skip this step if you're using gstreamer
 
-Or from source. This is probably the best option becase we will be installing a nightly build from gnash:
+You can install ffmpeg via homebrew:
+  brew install ffmpeg
+
+Or... from source. This is probably a good option becase we will be installing a nightly build from gnash:
   cd /tmp/
   wget http://ffmpeg.org/releases/ffmpeg-0.8.1.tar.gz
   tar -xzf ffmpeg-0.8.1.tar.gz
@@ -56,25 +61,40 @@ After that:
   brew install libagg
 
 +Install gnash:+
-Now this is a tricky one. There is a bug in the configure script of gnash, that won't detect the correct version of ffmpeg. It could be possible that the configure script will crash:
+Now this is a tricky one. There is a bug in the configure script of gnash, that won't detect the correct version of ffmpeg. It could be possible that the configure script will crash. The default installation of gnash will fallback to gstreamer.
 
-  cd /tmp/
-  wget ftp://ftp.mirror.nl/pub/mirror/gnu/gnash/0.8.9/gnash-0.8.9.tar.gz
-  tar -xzf gnash-0.8.9.tar.gz
-  cd gnash-0.8.9
-  ./configure --enable-renderer=agg --enable-gui=dump --enable-media=ffmpeg
-  make
-  make install
+Anway... this will install gnash-dump which will allow us to dump RAW files from an input SWF file:
 
-If it does, try installing gnash from the git repo:
+Option 1: Install from source
   cd /tmp/
   git clone git://git.sv.gnu.org/gnash.git
   cd gnash
   ./autogen
-  ./configure --enable-renderer=agg --enable-gui=dump --enable-media=ffmpeg
+  ./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-kparts --disable-nsapi --disable-menus  make
   make
-  make install
+  sudo make install
+
+Option 2: Install from tarbal from the intertubes:
+  cd /tmp/
+  wget ftp://ftp.mirror.nl/pub/mirror/gnu/gnash/0.8.9/gnash-0.8.9.tar.gz
+  tar -xzf gnash-0.8.9.tar.gz
+  cd gnash-0.8.9
+  ./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-kparts --disable-nsapi --disable-menus
+  make
+  sudo make install
 
 === Ubuntu
 
 TODO
+
+== Installing the thwomp gem
+  gem install thwomp
+
+== Usage
+
++Creating a thumbnail preview for a given SWF:+
+
+Initialize the renderer:
+  renderer = Thwomp::Renderer.new("http://www.nu.nl/ad.swf")
+
+  Thwomp::Thumbnail.new(renderer).file

@@ -11,7 +11,6 @@ Gem::Specification.new do |s|
   s.homepage    = ""
   s.summary     = %q{}
   s.description = %q{}
-  #s.extensions  = ['ext/gnash/extconf.rb']
 
   s.rubyforge_project = "thwomp"
 

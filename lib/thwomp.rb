@@ -1,3 +1,5 @@
+require 'downloader'
+require 'renderer'
+
 module Thwomp
-  # Your code goes here...
 end
