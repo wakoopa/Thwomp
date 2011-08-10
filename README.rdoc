@@ -1,0 +1,17 @@
+= Thwomp
+SWF renderer for Ruby
+
+== Installiing Thwomp
+
+Requirements:
+* gnash
+
+=== Installing gnash
+  cd /tmp/
+  wget ftp://ftp.mirror.nl/pub/mirror/gnu/gnash/0.8.9/gnash-0.8.9.tar.gz
+  tar -xzf gnash-0.8.9.tar.gz
+  cd gnash-0.8.9
+  ./configure --enable-renderer=agg --enable-gui=dump --enable-media=ffmpeg
+
+
+
