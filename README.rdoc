@@ -4,14 +4,77 @@ SWF renderer for Ruby
 == Installiing Thwomp
 
 Requirements:
+* giflib
+* ffmpeg (with libswscale enabled)
+* sdl
+* boost
+* antigrain (libagg)
 * gnash
 
-=== Installing gnash
+=== OSX
+
++Make sure homebrew is installed:+
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
+
++Update your homebrew:+
+  brew update
+
++Install giflib:+
+  brew install giflib
+
++Install ffmpeg:+
+
+You can install ffmpeg via homebrew:
+  bew install ffmpeg
+
+Or from source. This is probably the best option becase we will be installing a nightly build from gnash:
+  cd /tmp/
+  wget http://ffmpeg.org/releases/ffmpeg-0.8.1.tar.gz
+  tar -xzf ffmpeg-0.8.1.tar.gz
+  cd ffmpeg-0.8.1
+  ./configure
+  make
+  make install
+
++Install SDL dev. package:+
+Be warned, if you are running OSX Lion you'll need to set the default compiler to GCC instead of the GCC LVM compiler.
+  export CC=gcc-4.2
+
+After that:
+  cd /tmp/
+  wget http://www.libsdl.org/release/SDL-1.2.14.tar.gz
+  tar -xzf SDL-1.2.14.tar.gz
+  cd SDL-1.2.14
+  ./configure
+  make
+  make install
+
++Install boost:+
+  brew install boost
+
++Install anti grain:+
+  brew install libagg
+
++Install gnash:+
+Now this is a tricky one. There is a bug in the configure script of gnash, that won't detect the correct version of ffmpeg. It could be possible that the configure script will crash:
+
   cd /tmp/
   wget ftp://ftp.mirror.nl/pub/mirror/gnu/gnash/0.8.9/gnash-0.8.9.tar.gz
   tar -xzf gnash-0.8.9.tar.gz
   cd gnash-0.8.9
   ./configure --enable-renderer=agg --enable-gui=dump --enable-media=ffmpeg
+  make
+  make install
 
+If it does, try installing gnash from the git repo:
+  cd /tmp/
+  git clone git://git.sv.gnu.org/gnash.git
+  cd gnash
+  ./autogen
+  ./configure --enable-renderer=agg --enable-gui=dump --enable-media=ffmpeg
+  make
+  make install
 
+=== Ubuntu
 
+TODO
