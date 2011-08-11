@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "thwomp"
   s.version     = Thwomp::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Wakoopa"]
+  s.authors     = ["Altovista"]
   s.email       = ["webmaster@altovista.nl"]
   s.homepage    = "http://www.wakoopa.nl"
   s.summary     = %q{Create thumbnails or gif animations from SWF files}
