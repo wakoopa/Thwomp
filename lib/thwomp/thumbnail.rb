@@ -1,3 +1,5 @@
+require 'tmpdir'
+
 module Thwomp
 
   # Creates thumbnail of SWF movies
@@ -25,7 +27,7 @@ module Thwomp
 
     # returns the temp filename of the generated thumbnail
     def filename
-      @filename ||= renderer.frame_filename(most_suitable_frame)
+      @filename ||= generate_thumbnail!
     end
 
     private
@@ -49,6 +51,20 @@ module Thwomp
     # tests if the frame doesn't contain a too high concentration of one color
     def most_suitable_frame?(frame)
       renderer.frame_exists?(frame) && ColorCounter.new(renderer.frame_filename(frame)).present?
+    end
+
+    def most_suitable_frame_filename
+      @most_suitable_frame_filename ||= renderer.frame_filename(most_suitable_frame)
+    end
+
+    def generate_thumbnail!
+      filename = "#{Dir.tmpdir}/thumbnail_#{Time.now.to_i}.png"
+
+      thumbnail = ChunkyPNG::Image.from_file(renderer.frame_filename(most_suitable_frame))
+      thumbnail.resample_bilinear!(max_width, max_height)
+      thumbnail.save(filename)
+
+      filename
     end
 
   end
