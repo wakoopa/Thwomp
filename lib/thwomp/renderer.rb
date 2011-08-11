@@ -1,25 +1,25 @@
 require 'tmpdir'
 
 module Thwomp
+
   # Renders SWF files
   class Renderer
 
     attr_accessor :url, :max_width, :max_height, :max_frames
 
+    DEFAULT_OPTIONS = { :max_width => 500,
+                        :max_height => 500,
+                        :max_frames => 10 }
+
     # Initializer the Thwomp renderer
     #
     # Options:
-    #   :max_width   Maximum width of renderer
-    #   :max_height  Maximum height of renderer
+    #   :max_width        Maximum width of renderer
+    #   :max_height       Maximum height of renderer
+    #   :max_frames       Maximum number of frames the renderer can handle
     def initialize(url, options = {})
-      default_options.merge(options).each { |k,v| send(:"#{k}=", v) if v }
+      DEFAULT_OPTIONS.merge(options).each { |k,v| send(:"#{k}=", v) if v }
       @url = url
-    end
-
-    def default_options
-      { :max_width => 500,
-        :max_height => 500,
-        :max_frames => 10 }
     end
 
     # returns filename of frame
