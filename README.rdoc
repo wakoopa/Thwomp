@@ -1,6 +1,8 @@
 = Thwomp
 SWF renderer for Ruby
 
+Note: work in progress!
+
 == Installiing Thwomp
 
 Requirements:
