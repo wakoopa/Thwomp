@@ -1,4 +1,4 @@
-require 'chunky_png'
+require 'oily_png'
 
 module Thwomp
   # Flattens all colors in given image file and calculates the diversity in used colors

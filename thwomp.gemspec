@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Wakoopa"]
   s.email       = ["webmaster@altovista.nl"]
-  s.homepage    = ""
-  s.summary     = %q{}
-  s.description = %q{}
+  s.homepage    = "http://www.wakoopa.nl"
+  s.summary     = %q{Create thumbnails or gif animations from SWF files}
+  s.description = %q{Creates thumbnails or gif animations using Gnash as SWF renderer}
 
   s.rubyforge_project = "thwomp"
 
@@ -18,4 +18,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  s.add_development_dependency 'rspec'
+  s.add_dependency 'oily_png'
 end

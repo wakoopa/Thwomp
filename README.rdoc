@@ -4,8 +4,6 @@ SWF renderer for Ruby
 == Installiing Thwomp
 
 Requirements:
-* giflib
-* gstreamer (with plugins) or ffmpeg (with libswscale enabled)
 * sdl
 * boost
 * antigrain (libagg)
@@ -18,9 +16,6 @@ Requirements:
 
 +Update your homebrew:+
   brew update
-
-+Install giflib:+
-  brew install giflib
 
 +Install SDL dev. package:+
 Be warned, if you are running OSX Lion you'll need to set the default compiler to GCC instead of the GCC LVM compiler.
@@ -79,6 +74,14 @@ TODO
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = renderer.png_data(2)
 
-+Creating a preview for a given SWF:+
++Creating a thumbnail from a frame:+
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
-  data = Thwomp::Preview.new(renderer).png_data
+  data = Thwomp::Thumbnail.new(renderer).png_data(2)
+
++Finding the most suitble thumbnail for a swf movie:+
+  renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
+  data = Thwomp::SuitableThumbnail.new(renderer).png_data
+
++Creating a GIF animation from a swf movie:+
+  renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
+  data = Thwomp::AnimationPreview.new(renderer).gif_data

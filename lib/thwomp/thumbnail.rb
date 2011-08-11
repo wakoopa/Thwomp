@@ -1,4 +1,5 @@
 require 'tmpdir'
+require 'oily_png'
 
 module Thwomp
 
