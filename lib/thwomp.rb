@@ -1,6 +1,6 @@
 require 'thwomp/color_counter'
 require 'thwomp/downloader'
-require 'thwomp/preview'
+require 'thwomp/thumbnail'
 require 'thwomp/renderer'
 require 'thwomp/version'
 

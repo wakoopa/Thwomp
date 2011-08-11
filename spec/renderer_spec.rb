@@ -18,5 +18,13 @@ describe Thwomp::Renderer do
       subject.png_data(2).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame2.png")
     end
 
+    it 'extracts frame 4' do
+      subject.png_data(3).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame3.png")
+    end
+
+    it 'extracts frame 5' do
+      subject.png_data(4).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame4.png")
+    end
+
   end
 end
