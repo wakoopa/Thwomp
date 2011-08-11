@@ -1,38 +1,29 @@
-#!/bin/sh
-read -p "Do you wish to install homebrew? [y/n]" -n 1
-echo
+require 'rubygems'
+require 'highline/import'
 
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  echo Installing homebrew
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
-fi
+if ask('Do you wish to install homebrew? [y/n]') =~ /^[Yy]$/
+  puts 'Installing homebrew'
+  `/usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"`
+end
 
-read -p "Install required libs with homebrew? [y/n]" -n 1
-echo
+if ask('Install required libs with homebrew? [y/n]') =~ /^[Yy]$/
+  puts 'Installing required libs with homebrew'
+  `brew update && brew install giflib boost libagg`
+end
 
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  echo Installing required libs with homebrew
-  brew update && brew install giflib boost libagg
-fi
+if ask('Install gnash? This may take a while! [y/n]') =~ /^[Yy]$/
 
-read -p "Install gnash? This may take a while! [y/n]" -n 1
-echo
+  puts 'Installing gnash'
 
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  export CC=gcc-4.2
+  `export CC=gcc-4.2
+   cd /tmp/
+   rm -fr gnash
+   git clone git://git.sv.gnu.org/gnash.git
+   cd gnash
+   ./autogen
+   ./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-kparts --disable-nsapi --disable-menus  make
+   make
+   sudo make install`
+end
 
-  echo Installing gnash
-
-  cd /tmp/
-  git clone git://git.sv.gnu.org/gnash.git
-  cd gnash
-  ./autogen
-  ./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-kparts --disable-nsapi --disable-menus  make
-  make
-  sudo make install
-fi
-
-echo Done
+puts 'Done'
