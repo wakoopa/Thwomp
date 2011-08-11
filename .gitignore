@@ -3,3 +3,6 @@
 Gemfile.lock
 pkg/*
 .rvmrc
+*png
+urls.txt
+thwomp_test.rb

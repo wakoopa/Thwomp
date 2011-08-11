@@ -18,13 +18,16 @@ module Thwomp
     # loop till we find the most suitable frame
     def suitable_frame
       unless @suitable_frame
-        current_frame = renderer.max_frames
+        frames = ['last'] + (0..renderer.max_frames).to_a.reverse
 
-        while !suitable_frame?(current_frame) && current_frame > 0
-          current_frame -= 1
+        # render a batch of frames to speed up the process
+        renderer.render_batch!(frames)
+
+        frames.each do |frame|
+          @suitable_frame = frame if !@suitable_frame && suitable_frame?(frame)
         end
 
-        @suitable_frame = current_frame
+        @suitable_frame ||= 'last'
       end
 
       @suitable_frame

@@ -32,6 +32,20 @@ module Thwomp
       frame_exists?(frame) ? frame_data(frame) : nil
     end
 
+    # renders a batch of frames
+    def render_batch!(frames)
+      @frame_filename ||= {}
+
+      frame_batch = frames.join(',')
+      file_mask   = frame_output_filename('%f')
+
+      `#{self.class.gnash_binary} -s1 --screenshot=#{frame_batch} --screenshot-file=#{file_mask} -1 -r1 --timeout 200 #{filename} -j #{max_width} -k #{max_height}`
+
+      frames.each do |frame|
+        @frame_filename[frame] = file_mask.gsub('%f', frame.to_s)
+      end
+    end
+
     def frame_exists?(frame)
       render_frame!(frame)
       File.exists?(@frame_filename[frame])
@@ -60,16 +74,10 @@ module Thwomp
       unless @frame_filename[frame]
         @frame_filename[frame] = frame_output_filename(frame)
 
-        clean_frame!(frame)
-
-        `#{self.class.gnash_binary} -s1 --screenshot=#{frame} --screenshot-file #{@frame_filename[frame]} -1 -r1 --timeout 200 #{filename} -j #{max_width} -k #{max_height} --max-advances #{max_frames}`
+        `#{self.class.gnash_binary} -s1 --screenshot=#{frame} --screenshot-file #{@frame_filename[frame]} -1 -r1 --timeout 200 #{filename} -j #{max_width} -k #{max_height}`
       end
 
       @frame_filename[frame]
-    end
-
-    def clean_frame!(frame)
-      File.unlink(@frame_filename[frame]) if File.exists?(@frame_filename[frame])
     end
 
     def filename
