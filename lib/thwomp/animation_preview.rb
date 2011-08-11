@@ -39,7 +39,13 @@ module Thwomp
 
     # returns all filenames of the seperate frames in the flash animation
     def frame_filenames
-      @frame_filenames ||= (0..max_frames).map { |frame| thumbnail.filename(frame) }.compact
+      unless @frame_filenames
+        frames = (0..max_frames).to_a + ['last']
+        renderer.render_batch!(frames)
+        @frame_filenames = frames.map { |frame| thumbnail.filename(frame) }.compact
+      end
+
+      @frame_filenames
     end
 
     def generate_gif!

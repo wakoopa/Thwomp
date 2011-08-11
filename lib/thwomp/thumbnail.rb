@@ -34,6 +34,10 @@ module Thwomp
       @filename[frame] ||= generate_thumbnail!(frame) if renderer.frame_exists?(frame)
     end
 
+    def render_batch!(frames)
+
+    end
+
     private
 
     def generate_thumbnail!(frame)
