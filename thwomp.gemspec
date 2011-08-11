@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Altovista"]
   s.email       = ["webmaster@altovista.nl"]
-  s.homepage    = "http://www.wakoopa.nl"
+  s.homepage    = "http://www.altovista.nl"
   s.summary     = %q{Create thumbnails or gif animations from SWF files}
   s.description = %q{Creates thumbnails or gif animations using Gnash as SWF renderer}
 
