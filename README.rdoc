@@ -18,13 +18,13 @@ Just run install_gnash_osx
 
 === OSX
 
-+Make sure homebrew is installed:+
+*Make sure homebrew is installed:*
   /usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"
 
-+Update your homebrew:+
+*Update your homebrew:*
   brew update
 
-+Install SDL dev. package:+
+*Install SDL dev. package:*
 Be warned, if you are running OSX Lion you'll need to set the default compiler to GCC instead of the GCC LVM compiler.
   export CC=gcc-4.2
 
@@ -37,13 +37,13 @@ After that:
   make
   make install
 
-+Install boost:+
+*Install boost:*
   brew install boost
 
-+Install anti grain:+
+*Install anti grain:*
   brew install libagg
 
-+Install gnash:+
+*Install gnash:*
 Now this is a tricky one. There is a bug in the configure script of gnash, that won't detect the correct version of ffmpeg. It could be possible that the configure script will crash. The default installation of gnash will fallback to gstreamer.
 
 Anway... this will install gnash-dump which will allow us to dump RAW files from an input SWF file:
@@ -77,18 +77,18 @@ TODO
 
 == Usage
 
-+Retrieiving image from frame:+
+*Retrieiving image from frame:*
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = renderer.png_data(2)
 
-+Creating a thumbnail from a frame:+
+*Creating a thumbnail from a frame:*
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = Thwomp::Thumbnail.new(renderer).png_data(2)
 
-+Finding the most suitble thumbnail for a swf movie:+
+*Finding the most suitble thumbnail for a swf movie:*
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = Thwomp::SuitableThumbnail.new(renderer).png_data
 
-+Creating a GIF animation from a swf movie:+
+*Creating a GIF animation from a swf movie:*
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = Thwomp::AnimationPreview.new(renderer).gif_data
