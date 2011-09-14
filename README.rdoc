@@ -63,7 +63,7 @@ Option 1: Install from source
   make
   sudo make install
 
-Option 2: Install from tarbal from the intertubes:
+Option 2: Install from tarball from the intertubes:
   cd /tmp/
   wget ftp://ftp.mirror.nl/pub/mirror/gnu/gnash/0.8.9/gnash-0.8.9.tar.gz
   tar -xzf gnash-0.8.9.tar.gz
@@ -83,7 +83,7 @@ TODO
 
 == Usage
 
-<b>Retrieiving image from frame:</b>
+<b>Retrieving image from frame:</b>
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = renderer.png_data(2)
 
@@ -91,7 +91,7 @@ TODO
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = Thwomp::Thumbnail.new(renderer).png_data(2)
 
-<b>Finding the most suitble thumbnail for a swf movie:</b>
+<b>Finding the most suitable thumbnail for a swf movie:</b>
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
   data = Thwomp::SuitableThumbnail.new(renderer).png_data
 
