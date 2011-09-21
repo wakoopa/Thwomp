@@ -31,7 +31,7 @@ module Thwomp
     def png
       @png ||= begin
         ChunkyPNG::Image.from_file(image_filename)
-      rescue Errno::ENOENT, ChunkyPNG::Exception
+      rescue Errno::ENOENT, ChunkyPNG::Exception, RangeError, NoMethodError
         false
       end
     end

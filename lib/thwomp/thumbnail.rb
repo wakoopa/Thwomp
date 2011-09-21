@@ -52,7 +52,7 @@ module Thwomp
         thumbnail.save(filename)
 
         filename
-      rescue ChunkyPNG::Exception
+      rescue ChunkyPNG::Exception, RangeError, NoMethodError
         false
       end
     end
