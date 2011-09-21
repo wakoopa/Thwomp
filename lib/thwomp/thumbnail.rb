@@ -43,11 +43,18 @@ module Thwomp
     def generate_thumbnail!(frame)
       filename = "#{Dir.tmpdir}/thumbnail_#{Time.now.to_i}_#{frame}.png"
 
-      thumbnail = ChunkyPNG::Image.from_file(renderer.frame_filename(frame))
-      thumbnail.resample_bilinear!(max_width, max_height)
-      thumbnail.save(filename)
+      frame_filename = renderer.frame_filename(frame)
+      return false unless frame_filename && !frame_filename.empty?
 
-      filename
+      begin
+        thumbnail = ChunkyPNG::Image.from_file(frame_filename)
+        thumbnail.resample_bilinear!(max_width, max_height)
+        thumbnail.save(filename)
+
+        filename
+      rescue ChunkyPNG::Exception
+        false
+      end
     end
 
   end

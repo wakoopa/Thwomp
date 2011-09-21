@@ -5,7 +5,7 @@ module Thwomp
 
     # returns the png binary data of the generated thumbnail
     def png_data
-      File.open(filename, 'rb') { |f| f.read }
+      filename && File.open(filename, 'rb') { |f| f.read }
     end
 
     # returns the temp filename of the generated thumbnail
@@ -36,7 +36,12 @@ module Thwomp
     # tests if the given frame no. is suitable for a thumbnail
     # tests if the frame doesn't contain a too high concentration of one color
     def suitable_frame?(frame)
-      renderer.frame_exists?(frame) && ColorCounter.new(renderer.frame_filename(frame)).present?
+      renderer.frame_exists?(frame) && suitable_frame_by_colors?(frame)
+    end
+
+    def suitable_frame_by_colors?(frame)
+      cc = ColorCounter.new(renderer.frame_filename(frame))
+      cc.valid_png? && cc.present?
     end
 
     def suitable_frame_filename

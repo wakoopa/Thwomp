@@ -8,4 +8,11 @@ describe Thwomp::SuitableThumbnail do
 
     subject.png_data.should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame5_thumbnail.png")
   end
+
+  it 'handles errors when creating a thumbnail' do
+    renderer = Thwomp::Renderer.new("#{File.dirname(__FILE__)}/fixtures/bogus.swf")
+    subject = Thwomp::SuitableThumbnail.new(renderer, :max_width => 128, :max_height => 128)
+
+    subject.filename.should == false
+  end
 end

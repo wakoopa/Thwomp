@@ -39,16 +39,18 @@ module Thwomp
       frame_batch = frames.join(',')
       file_mask   = frame_output_filename('%f')
 
-      `#{self.class.gnash_binary} -s1 --screenshot=#{frame_batch} --screenshot-file=#{file_mask} -1 -r1 --timeout 200 #{filename} -j #{max_width} -k #{max_height}`
+      `#{self.class.gnash_binary} -s1 --screenshot=#{frame_batch} --screenshot-file=#{file_mask} -1 -r1 --timeout 200 #{filename} -j #{max_width} -k #{max_height} > /dev/null 2>&1`
+
+      success = $?.success?
 
       frames.each do |frame|
-        @frame_filename[frame] = file_mask.gsub('%f', frame.to_s)
+        @frame_filename[frame] = success ? file_mask.gsub('%f', frame.to_s) : false
       end
     end
 
     def frame_exists?(frame)
       render_frame!(frame)
-      File.exists?(@frame_filename[frame])
+      @frame_filename[frame] && File.exists?(@frame_filename[frame])
     end
 
     # returns the current set gnash binary
@@ -72,9 +74,11 @@ module Thwomp
       @frame_filename ||= {}
 
       unless @frame_filename[frame]
-        @frame_filename[frame] = frame_output_filename(frame)
+        frame_filename = frame_output_filename(frame)
 
-        `#{self.class.gnash_binary} -s1 --screenshot=#{frame} --screenshot-file #{@frame_filename[frame]} -1 -r1 --timeout 200 #{filename} -j #{max_width} -k #{max_height}`
+        `#{self.class.gnash_binary} -s1 --screenshot=#{frame} --screenshot-file #{frame_filename} -1 -r1 --timeout 200 #{filename} -j #{max_width} -k #{max_height} > /dev/null 2>&1`
+
+        @frame_filename[frame] = $?.success? ? frame_filename : false
       end
 
       @frame_filename[frame]

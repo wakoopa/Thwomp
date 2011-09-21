@@ -22,10 +22,18 @@ module Thwomp
       !empty?
     end
 
+    def valid_png?
+      !!png
+    end
+
     private
 
     def png
-      @png ||= ChunkyPNG::Image.from_file(image_filename)
+      @png ||= begin
+        ChunkyPNG::Image.from_file(image_filename)
+      rescue Errno::ENOENT, ChunkyPNG::Exception
+        false
+      end
     end
 
     def width
