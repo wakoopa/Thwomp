@@ -76,7 +76,13 @@ Don't forget to add sudo before gnash.
 
 === Ubuntu
 
-TODO
+  git clone git://git.sv.gnu.org/gnash.git
+  cd gnash
+  sudo apt-get install -y libagg-dev automake autoconf libtool libltdl-dev libjpeg-dev libgif-dev libboost-dev libboost-thread-dev libboost-program-options-dev libfontconfig1-dev libfreetype6-dev ffmpeg libpng-dev libspeex-dev libsdl-dev libspeexdsp-dev imagemagick
+  ./autogen.sh
+  ./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-menus
+  make
+  sudo make install
 
 == Installing the thwomp gem
   gem install thwomp
