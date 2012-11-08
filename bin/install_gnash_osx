@@ -9,7 +9,7 @@ end
 
 if ask('Install required libs with homebrew? [y/n]') =~ /^[Yy]$/
   puts 'Installing required libs with homebrew'
-  `brew update && brew install giflib boost libagg`
+  `brew update && brew install libtool giflib boost libagg gconf`
 end
 
 if ask('Install gnash? This may take a while! [y/n]') =~ /^[Yy]$/
@@ -21,8 +21,8 @@ if ask('Install gnash? This may take a while! [y/n]') =~ /^[Yy]$/
    rm -fr gnash
    git clone git://git.sv.gnu.org/gnash.git
    cd gnash
-   ./autogen
-   ./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-kparts --disable-nsapi --disable-menus  make
+   ./autogen.sh
+   ./configure --prefix=/usr/local/gnash-dump --enable-renderer=agg --enable-gui=dump --enable-media=no --disable-kparts --disable-nsapi --disable-menus
    make
    sudo make install`
 end
