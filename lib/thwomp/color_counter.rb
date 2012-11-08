@@ -80,7 +80,7 @@ module Thwomp
 
     # returns the color at pixel X,Y
     def color_at(x,y)
-      png[y, x]
+      png[x, y]
     end
 
     def flattened_color_at(x,y)
