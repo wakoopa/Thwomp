@@ -89,17 +89,14 @@ Don't forget to add sudo before gnash.
 
 == Usage
 
-<b>Retrieving image from frame:</b>
-  renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
-  data = renderer.png_data(2)
-
-<b>Creating a thumbnail from a frame:</b>
-  renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
-  data = Thwomp::Thumbnail.new(renderer).png_data(2)
-
 <b>Finding the most suitable thumbnail for a swf movie:</b>
-  renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
-  data = Thwomp::SuitableThumbnail.new(renderer).png_data
+  thumbnail_path = Thwomp.pick("http://www.example.com/flash.swf")
+
+This picks the right renderer based on file extension. If that doesn't work
+for you, you can instantiate the right renderer yourself. Like this;
+
+  renderer = Thwomp::Renderers::SWF.new("http://www.example.com/flash.swf")
+  thumbnail_path = ThumbnailPicker.pick(renderer.frames)
 
 <b>Creating a GIF animation from a swf movie:</b>
   renderer = Thwomp::Renderer.new("http://www.example.com/flash.swf")
