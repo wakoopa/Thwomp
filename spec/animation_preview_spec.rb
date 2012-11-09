@@ -1,12 +1,22 @@
 require 'spec_helper'
 
-describe Thwomp::AnimationPreview do
+module Thwomp
 
-  let(:renderer) { Thwomp::Renderer.new("#{File.dirname(__FILE__)}/fixtures/test.swf") }
+  describe AnimationPreview do
 
-  it 'generates a gif animation' do
-    animation = Thwomp::AnimationPreview.new(renderer, :max_width => 60, :max_height => 60)
-    animation.gif_data.should == get_contents("#{File.dirname(__FILE__)}/fixtures/frames.gif")
+    it "shells out to 'convert' to create an animated gif" do
+      frames = %w(a.png b.png c.png)
+      now = Time.now
+      output_file = "#{Dir.tmpdir}/animation_#{now.to_i}.gif"
+
+      cmd = "convert -extent 128X128 #{frames.join(' ')} #{output_file}"
+      Command.should_receive(:exec).with(cmd)
+
+      Time.stub(:now).and_return(now)
+      preview = AnimationPreview.new(frames)
+      preview.generate!.should == output_file
+    end
+
   end
 
 end
