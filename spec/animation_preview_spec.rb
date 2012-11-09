@@ -9,7 +9,7 @@ module Thwomp
       now = Time.now
       output_file = "#{Dir.tmpdir}/animation_#{now.to_i}.gif"
 
-      cmd = "convert -extent 128X128 #{frames.join(' ')} #{output_file}"
+      cmd = "convert #{frames.join(' ')} #{output_file}"
       Command.should_receive(:exec).with(cmd)
 
       Time.stub(:now).and_return(now)

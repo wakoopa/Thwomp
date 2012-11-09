@@ -8,24 +8,14 @@ module Thwomp
 
     attr_reader :frames
 
-    def initialize(frames, options={})
+    def initialize(frames)
       @frames = frames
-      @options = options
     end
 
     def generate!
       filename = "#{Dir.tmpdir}/animation_#{Time.now.to_i}.gif"
-      extent = "-extent #{max_width}X#{max_height}"
-      Command.exec("convert #{extent} #{frames.join(' ')} #{filename}")
+      Command.exec("convert #{frames.join(' ')} #{filename}")
       filename
-    end
-
-    def max_width
-      @options.fetch(:max_width) { 128 }
-    end
-
-    def max_height
-      @options.fetch(:max_height) { 128 }
     end
 
     # returns the gif binary data of generated animation
