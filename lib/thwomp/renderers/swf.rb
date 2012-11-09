@@ -22,7 +22,7 @@ module Thwomp
         timestamp = Time.now.to_i
 
         Command.exec(
-          "gnash -s1 --screenshot=#{frame_batch}" \
+          "#{executable} -s1 --screenshot=#{frame_batch}" \
           " --screenshot-file=#{output_file(timestamp)}" \
           " -1 -r1 --timeout 200 #{filename} -j #{width}" \
           " -k #{height} > /dev/null 2>&1"
@@ -32,7 +32,16 @@ module Thwomp
       end
 
       def frame(number)
-        # TODO: return single frame
+        timestamp = Time.now.to_i
+
+        Command.exec(
+          "#{executable} -s1 --screenshot=#{number}" \
+          " --screenshot-file=#{output_file(timestamp)}" \
+          " -1 -r1 --timeout 200 #{filename} -j #{width}" \
+          " -k #{height} > /dev/null 2>&1"
+        )
+
+        "#{Dir.tmpdir}/frame_#{timestamp}_#{number}.png"
       end
 
       def frame_batch
@@ -42,6 +51,10 @@ module Thwomp
 
       def output_file(timestamp)
         "#{Dir.tmpdir}/frame_#{timestamp}_%f.png"
+      end
+
+      def executable
+        Thwomp.gnash_path || "gnash-dump"
       end
 
     end

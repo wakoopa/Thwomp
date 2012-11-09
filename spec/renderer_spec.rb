@@ -1,30 +1,29 @@
 require 'spec_helper'
 require 'thwomp'
 
-describe Thwomp::Renderer do
-  describe 'extracting frames from flash' do
+module Thwomp
 
-    subject { Thwomp::Renderer.new("#{File.dirname(__FILE__)}/fixtures/test.swf") }
+  describe Renderer do
 
-    it 'extracts frame 1' do
-      subject.png_data(0).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame0.png")
+    it "instantiates the ffmpeg renderer for flv" do
+      path = "/some/path/test.flv"
+      Renderers::FFMPEG.should_receive(:new).with(path)
+      renderer = Renderer.new(path)
     end
 
-    it 'extracts frame 2' do
-      subject.png_data(1).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame1.png")
+    it "instantiates the gnash renderer for swf" do
+      path = "/some/path/test.swf"
+      Renderers::SWF.should_receive(:new).with(path)
+      renderer = Renderer.new(path)
     end
 
-    it 'extracts frame 3' do
-      subject.png_data(2).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame2.png")
-    end
-
-    it 'extracts frame 4' do
-      subject.png_data(3).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame3.png")
-    end
-
-    it 'extracts frame 5' do
-      subject.png_data(4).should == get_contents("#{File.dirname(__FILE__)}/fixtures/frame4.png")
+    it "passes all arguments to the renderer" do
+      path = "/some/path/test.swf"
+      options = { :width => 200, :height => 200 }
+      Renderers::SWF.should_receive(:new).with(path, options)
+      renderer = Renderer.new(path, options)
     end
 
   end
+
 end

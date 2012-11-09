@@ -3,6 +3,7 @@ module Thwomp
   module Renderers
 
     module Helper
+
       def sort(frames)
         frames.sort do |a, b|
           frame_number(File.basename(a)) <=> frame_number(File.basename(b))
