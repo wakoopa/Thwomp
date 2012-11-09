@@ -15,7 +15,7 @@ module Thwomp
         timestamp = Time.now.to_i
         output_file_name = "#{Dir.tmpdir}/frame_#{timestamp}_%d.png"
 
-        system("#{executable} -i #{filename} -f image2 -r 1 -vf scale=128:-1 #{output_file_name} &> /dev/null")
+        Command.exec("#{executable} -i #{filename} -f image2 -r 1 -vf scale=128:-1 #{output_file_name} &> /dev/null")
 
         sort Dir.glob("#{Dir.tmpdir}/frame_#{timestamp}_*.png")
       end
