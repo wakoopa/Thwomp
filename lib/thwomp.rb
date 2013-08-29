@@ -1,4 +1,5 @@
 require 'thwomp/version'
+require 'thwomp/errors'
 require 'thwomp/renderer'
 require 'thwomp/renderers/helper'
 require 'thwomp/renderers/swf'

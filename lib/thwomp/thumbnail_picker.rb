@@ -8,6 +8,8 @@ module Thwomp
         counter.valid_png? && counter.present?
       end
 
+      raise NoSuitableFramesFoundError unless path
+
       Thumbnail.generate!(path)
     end
 
