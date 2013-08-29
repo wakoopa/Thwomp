@@ -1,10 +1,15 @@
 module Thwomp
   # Downloads SWF files
-  class Downloader < Struct.new(:swf_url)
+  class Downloader
+    attr_accessor :url
+
+    def initialize(url)
+      self.url = url
+    end
 
     # tests if the given file remote
     def remote?
-      swf_url =~ /^http(s)?::/
+      !!(url =~ /^http(s)?:/)
     end
 
     # tests if the given file is local
@@ -14,7 +19,7 @@ module Thwomp
 
     # returns filename of local/remote file
     def filename
-      local?? swf_url : tmp_file.path
+      local?? url : tmp_file.path
     end
 
     private
@@ -28,7 +33,7 @@ module Thwomp
     end
 
     def response
-      @response ||= http.get(swf_url)
+      @response ||= http.get(url)
     end
 
   end
