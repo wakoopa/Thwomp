@@ -7,8 +7,8 @@ module Thwomp
 
       attr_reader :filename
 
-      def initialize(url)
-        @filename = Downloader.new(url).filename
+      def initialize(filename)
+        @filename = filename
       end
 
       def frames

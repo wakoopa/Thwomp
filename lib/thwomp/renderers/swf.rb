@@ -11,8 +11,8 @@ module Thwomp
 
       attr_reader :filename, :frame_count, :width, :height
 
-      def initialize(url, options={})
-        @filename = Downloader.new(url).filename
+      def initialize(filename, options={})
+        @filename = filename
         @frame_count = options.fetch(:frame_count) { 10 }
         @width = options.fetch(:width) { 500 }
         @height = options.fetch(:height) { 500 }
