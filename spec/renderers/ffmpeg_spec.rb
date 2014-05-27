@@ -9,12 +9,12 @@ module Thwomp
 
     it "creates a screenshot every second" do
       renderer = Renderers::FFMPEG.new(path)
-      now = Time.now
-      output_file = "#{Dir.tmpdir}/frame_#{now.to_i}_%d.png"
-      cmd = "ffmpeg -i #{path} -f image2 -r 1 -vf scale=128:-1 #{output_file} &> /dev/null"
+      renderer.stub(:generate_uuid).and_return("abc")
 
-      Time.stub(:now).and_return(now)
-      Command.should_receive(:exec).with(cmd)
+      output_file = "#{Dir.tmpdir}/frame_abc_%d.png"
+      cmd = "ffmpeg -i #{path} -f image2 -r 1 -vf scale=640:-1 #{output_file}".split(" ")
+
+      Command.should_receive(:exec).with(*cmd)
       renderer.frames
     end
 

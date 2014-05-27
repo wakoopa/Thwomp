@@ -12,12 +12,19 @@ module Thwomp
       end
 
       def frames
-        timestamp = Time.now.to_i
-        output_file_name = "#{Dir.tmpdir}/frame_#{timestamp}_%d.png"
+        uuid = generate_uuid
+        output_file_name = "#{Dir.tmpdir}/frame_#{uuid}_%d.png"
 
-        Command.exec("#{executable} -i #{filename} -f image2 -r 1 -vf scale=128:-1 #{output_file_name} &> /dev/null")
+        Command.exec(
+          executable,
+          "-i", filename,
+          "-f", "image2",
+          "-r", "1",
+          "-vf", "scale=640:-1",
+          output_file_name
+        )
 
-        sort Dir.glob("#{Dir.tmpdir}/frame_#{timestamp}_*.png")
+        sort Dir.glob("#{Dir.tmpdir}/frame_#{uuid}_*.png")
       end
 
       def executable

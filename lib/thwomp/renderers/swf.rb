@@ -19,29 +19,22 @@ module Thwomp
       end
 
       def frames
-        timestamp = Time.now.to_i
+        uuid = generate_uuid
 
         Command.exec(
-          "#{executable} -s1 --screenshot=#{frame_batch}" \
-          " --screenshot-file=#{output_file(timestamp)}" \
-          " -1 -r1 --timeout 200 #{filename} -j #{width}" \
-          " -k #{height} > /dev/null 2>&1"
+          executable,
+          "-s1",
+          "--screenshot=#{frame_batch}",
+          "--screenshot-file=#{output_file(uuid)}",
+          "-1",
+          "-r1",
+          "--timeout", "200",
+          filename,
+          "-j", width.to_s,
+          "-k", height.to_s
         )
 
-        sort Dir.glob("#{Dir.tmpdir}/frame_#{timestamp}_*.png")
-      end
-
-      def frame(number)
-        timestamp = Time.now.to_i
-
-        Command.exec(
-          "#{executable} -s1 --screenshot=#{number}" \
-          " --screenshot-file=#{output_file(timestamp)}" \
-          " -1 -r1 --timeout 200 #{filename} -j #{width}" \
-          " -k #{height} > /dev/null 2>&1"
-        )
-
-        "#{Dir.tmpdir}/frame_#{timestamp}_#{number}.png"
+        sort Dir.glob("#{Dir.tmpdir}/frame_#{uuid}_*.png")
       end
 
       def frame_batch
@@ -49,8 +42,8 @@ module Thwomp
         batch.join(',')
       end
 
-      def output_file(timestamp)
-        "#{Dir.tmpdir}/frame_#{timestamp}_%f.png"
+      def output_file(uuid)
+        "#{Dir.tmpdir}/frame_#{uuid}_%f.png"
       end
 
       def executable
