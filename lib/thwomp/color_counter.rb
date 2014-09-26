@@ -6,6 +6,9 @@ module Thwomp
   class ColorCounter < Struct.new(:image_filename)
 
     FLATTEN_FACTOR = 4.0
+    INVALID_PNG_ERRORS = [
+      Errno::ENOENT, ChunkyPNG::Exception, RangeError, NoMethodError, Zlib::BufError
+    ]
 
     # returns the number of different colors
     def diversity
@@ -31,7 +34,7 @@ module Thwomp
     def png
       @png ||= begin
         ChunkyPNG::Image.from_file(image_filename)
-      rescue Errno::ENOENT, ChunkyPNG::Exception, RangeError, NoMethodError
+      rescue *INVALID_PNG_ERRORS
         false
       end
     end
