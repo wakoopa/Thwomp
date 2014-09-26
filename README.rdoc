@@ -11,11 +11,6 @@ Requirements:
 * antigrain (libagg)
 * gnash
 
-=== OSX lazy installer
-
-Just run install_gnash_osx
-
-
 === OSX
 
 <b>Make sure homebrew is installed:</b>
