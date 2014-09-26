@@ -10,11 +10,11 @@ module Thwomp
       output_file = "#{Dir.tmpdir}/animation_#{now.to_i}.gif"
 
       cmd = "convert #{frames.join(' ')} #{output_file}"
-      Command.should_receive(:exec).with(cmd)
+      expect(Command).to receive(:exec).with(cmd)
 
-      Time.stub(:now).and_return(now)
+      allow(Time).to receive(:now).and_return(now)
       preview = AnimationPreview.new(frames)
-      preview.generate!.should == output_file
+      expect(preview.generate!).to eq(output_file)
     end
 
   end
